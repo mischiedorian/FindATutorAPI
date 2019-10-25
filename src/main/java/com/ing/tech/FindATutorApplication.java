@@ -1,4 +1,4 @@
-package com.ing.tech.FindATutor;
+package com.ing.tech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

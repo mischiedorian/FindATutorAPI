@@ -1,4 +1,4 @@
-package com.ing.tech.FindATutor;
+package com.ing.tech;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
