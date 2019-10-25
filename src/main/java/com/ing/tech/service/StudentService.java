@@ -50,7 +50,7 @@ public class StudentService {
         Course course = courseService.getCourseById(idCourse);
 
         if(!student.getCourses().contains(course)) {
-            throw new CourseNotFoundException(String.format("Student don't have %d course enroll", idCourse));
+            throw new CourseNotFoundException(String.format("Student don't enrolled on course with id %d", idCourse));
         }
 
         course.setParticipants(course.getMaxParticipants() - 1);
