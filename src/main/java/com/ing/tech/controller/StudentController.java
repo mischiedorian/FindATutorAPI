@@ -3,6 +3,7 @@ package com.ing.tech.controller;
 import com.ing.tech.FindATutorApplication;
 import com.ing.tech.model.dao.Student;
 import com.ing.tech.model.dto.CourseIdentifier;
+import com.ing.tech.model.dto.CourseList;
 import com.ing.tech.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +36,6 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-//    POST /students/{phoneNumber}/courses  => 200 OK if the max number of participants is not reached and 400 if the max is already reached
-//    {
-//        idCourse
-//    }
     @PostMapping("/{phoneNumber}/courses")
     public ResponseEntity attendCourse(@PathVariable String phoneNumber, @RequestBody CourseIdentifier courseIdentifier) {
         studentService.enroll(phoneNumber, courseIdentifier);
@@ -46,11 +43,17 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("/{phoneNumber}/courses")
-//    public ResponseEntity getAllCourses(@PathVariable String phoneNumber) {
-//        studentService.enroll(phoneNumber);
-//
-//        return ResponseEntity.ok().build();
-//    }
+    @DeleteMapping("/{phoneNumber}/courses/{idCourse}")
+    public ResponseEntity withdrawCourse(@PathVariable String phoneNumber, @PathVariable Long idCourse) {
+        studentService.withdraw(phoneNumber, idCourse);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{phoneNumber}/courses")
+    public ResponseEntity<CourseList> getAllCoursesByStudent(@PathVariable String phoneNumber) {
+        CourseList courseList = studentService.getAllCourses(phoneNumber);
+
+        return ResponseEntity.ok().body(courseList);
+    }
 }

@@ -33,6 +33,10 @@ public class CourseService {
         return mapCourseDAOtoDTO(savedCourse);
     }
 
+    public CourseDTO updateCourse(Course course) {
+       return mapCourseDAOtoDTO(courseRepository.save(course));
+    }
+
     public CourseList getAllCourses(Optional<String> domain) {
         List<Course> courses =
                 domain.isPresent() ? courseRepository.findAllByDomain(domain) : courseRepository.findAll();
