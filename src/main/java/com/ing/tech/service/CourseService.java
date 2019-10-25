@@ -55,7 +55,7 @@ public class CourseService {
                 courseDTO.getDomain(), 0, null, null);
     }
 
-    private CourseDTO mapCourseDAOtoDTO(Course course) {
+    CourseDTO mapCourseDAOtoDTO(Course course) {
         return new CourseDTO(course.getId(), course.getName(), course.getDetails(), course.getLocation(),
                 course.getDateTime(), course.getDuration(), course.getMaxParticipants(), course.getDomain(),
                 course.getTeacher().getPhoneNumber(), course.getParticipants());

@@ -53,9 +53,9 @@ public class StudentService {
             throw new CourseNotFoundException(String.format("Student don't enrolled on course with id %d", idCourse));
         }
 
-        course.setParticipants(course.getMaxParticipants() - 1);
+        course.setParticipants(course.getParticipants() - 1);
         student.getCourses().remove(course);
-
+        course.getStudentSet().remove(student);
     }
 
     public Student identifyStudent(String phoneNumber) {
@@ -64,14 +64,7 @@ public class StudentService {
 
     public CourseList getAllCourses(String phoneNumber) {
         Student student = identifyStudent(phoneNumber);
-        List<CourseDTO> courses = student.getCourses().stream().map(this::mapCourseDAOtoDTO).collect(Collectors.toList());
+        List<CourseDTO> courses = student.getCourses().stream().map((c) -> courseService.mapCourseDAOtoDTO(c)).collect(Collectors.toList());
         return new CourseList(courses);
-    }
-
-    //TODO: move this shit
-    private CourseDTO mapCourseDAOtoDTO(Course course) {
-        return new CourseDTO(course.getId(), course.getName(), course.getDetails(), course.getLocation(),
-                course.getDateTime(), course.getDuration(), course.getMaxParticipants(), course.getDomain(),
-                course.getTeacher().getPhoneNumber(), course.getParticipants());
     }
 }
